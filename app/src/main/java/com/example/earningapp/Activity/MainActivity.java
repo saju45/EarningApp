@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.earningapp.Fragments.FragmentReplacerActivity;
 import com.example.earningapp.Model.Internet;
 import com.example.earningapp.Model.ProfileModel;
 import com.example.earningapp.R;
@@ -59,13 +60,11 @@ public class MainActivity extends AppCompatActivity {
         binding=ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-
         setSupportActionBar(binding.toolbar);
-        checkInternetConnection();
+       // checkInternetConnection();
         internet=new Internet(MainActivity.this);
 
         firebaseAuth=FirebaseAuth.getInstance();
-
         firebaseUser= firebaseAuth.getCurrentUser();
         reference= FirebaseDatabase.getInstance().getReference().child("users");
 
@@ -85,6 +84,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+        binding.luckySpin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(MainActivity.this, FragmentReplacerActivity.class);
+                intent.putExtra("position",2);
+                startActivity(intent);
+            }
+        });
 
         binding.dailyCheckCard.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -303,7 +311,7 @@ public class MainActivity extends AppCompatActivity {
 
             try {
 
-                String strUrl="";
+                String strUrl="https://icons.iconarchive.com/icons/martz90/circle/256/android-icon.png";
                 URL url=new URL(strUrl);
 
                 URLConnection urlConnection=url.openConnection();

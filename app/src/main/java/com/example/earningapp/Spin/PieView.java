@@ -32,7 +32,7 @@ public class PieView extends View {
     private int textColor=0xffffffff;
 
     private List<SpinItem> spinItemsList;
-    private pieRotateListener pieRotateListner;
+    public pieRotateListener pieRotateListner;
     public interface  pieRotateListener{
         void rotateDone(int index);
     }
@@ -42,7 +42,7 @@ public class PieView extends View {
         super(context);
    }
 
-   private PieView(Context context, AttributeSet attrs)
+   public PieView(Context context, AttributeSet attrs)
    {
        super(context,attrs);
    }
@@ -86,6 +86,12 @@ public class PieView extends View {
 
    }
 
+   public void setPieBackgroundColor(int color){
+        defaultBackgroundColor=color;
+        invalidate();
+   }
+
+
    @Override
    protected void onDraw(Canvas canvas)
    {
@@ -105,7 +111,7 @@ public class PieView extends View {
        {
            mArcPaint.setColor(spinItemsList.get(i).color);
            canvas.drawArc(range,tmpAngle,sweepAngle,true,mArcPaint);
-           drawText(canvas,tmpAngle,sweepAngle,spinItemsList.get(i).text);
+           drawText(canvas,tmpAngle,sweepAngle,spinItemsList.get(i).text.toString());
 
            tmpAngle+=sweepAngle;
        }
@@ -174,7 +180,7 @@ public class PieView extends View {
 
        float textWidth=mTextPaint.measureText(string);
 
-       int offSet=(int) (radius*Math.PI/spinItemsList.size()/ - textWidth /2);
+       int offSet=(int) (radius*Math.PI/spinItemsList.size()/2 - textWidth /2);
 
        int vOffSet=radius/2/4;
 
@@ -187,13 +193,13 @@ public class PieView extends View {
 
        return (360/spinItemsList.size()*tempIndex);
    }
-  private void setRoundOfNumber(int roundOfNumber)
+  public void setRound(int roundOfNumber)
   {
 
       roundOfNumber=roundOfNumber;
   }
 
-  private void rotateTo(int index)
+  public void rotateTo(int index)
   {
 
       if (isRunning)
